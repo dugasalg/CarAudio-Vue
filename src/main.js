@@ -1,6 +1,6 @@
 import Vue from 'vue'
-//import App from './AppLogin.vue'
-import App from './AppRegister.vue'
+import App from './AppLogin.vue'
+//import App from './AppRegister.vue'
 //import AppRegister from './AppRegister.vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 // Import Bootstrap and BootstrapVue CSS files (order is important)
