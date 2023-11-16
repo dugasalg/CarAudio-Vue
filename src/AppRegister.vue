@@ -74,7 +74,7 @@ export default {
   methods: {
     async registerUser() {
       try {
-        const response = await axios.post('https://distinct-fish-polo-shirt.cyclic.app/users/iniciar-sesion', {
+        const response = await axios.post('https://distinct-fish-polo-shirt.cyclic.app/users/registrar', {
           usrn: this.username,
           password: this.password,
           email: this.email,
