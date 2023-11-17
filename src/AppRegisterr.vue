@@ -69,7 +69,7 @@
           sexo: this.gender
         }
   
-        const serveUrl = "https://distinct-fish-polo-shirt.cyclic.app/";
+        const serveUrl = "https://real-gray-cheetah-fez.cyclic.app";
   
         const response = await axios.post(
           `${serveUrl}users/registrar`,
