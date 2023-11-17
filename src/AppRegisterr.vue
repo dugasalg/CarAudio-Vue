@@ -23,11 +23,6 @@
               <b-form-group label="Address">
                 <b-form-input v-model="address" placeholder="Enter your address"></b-form-input>
               </b-form-group>
-              
-              <b-form-group label="Gender">
-                <b-form-input v-model="gender" placeholder="Enter your gender (Masculino, Femenino, Other)"></b-form-input>
-              </b-form-group>
-  
   
               <b-button type="submit" variant="primary">Register</b-button>
             </b-form>
@@ -45,7 +40,7 @@
   import axios from 'axios';
   
   export default {
-    name:'App',
+    name:'AppRegisterr',
     components: {
   
     },
@@ -55,7 +50,6 @@
         password: "",
         birthDate: "",
         address: "",
-        gender: ""
       }
     },
     methods:{
@@ -65,8 +59,7 @@
           usrn: this.username,
           password: this.password,
           birthDate: this.birthDate,
-          address: this.address,
-          sexo: this.gender
+          address: this.address
         }
   
         const serveUrl = "https://real-gray-cheetah-fez.cyclic.app";
