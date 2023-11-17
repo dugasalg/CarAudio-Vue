@@ -62,7 +62,7 @@
           address: this.address
         }
   
-        const serveUrl = "https://real-gray-cheetah-fez.cyclic.app";
+        const serveUrl = "https://real-gray-cheetah-fez.cyclic.app/";
   
         const response = await axios.post(
           `${serveUrl}users/registrar`,
