@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <b-container>
       <b-row>
         <b-col></b-col>
@@ -29,6 +29,7 @@
               <br>
               <b-button type="submit" variant="primary">Login</b-button>
             </b-form>
+            <router-link to="/register">Register</router-link>
           </b-card>
         </b-col>
         <b-col></b-col>
@@ -59,12 +60,18 @@ export default {
       }
 
       try {
-        const response = await axios.post('https://real-gray-cheetah-fez.cyclic.appusers/iniciar-sesion', requestBody)
-        console.log(response)
+        const response = await axios.post('https://real-gray-cheetah-fez.cyclic.app/users/iniciar-sesion', requestBody);
+        console.log(response);
+        if (response && response.data && response.data.jwt) {
+          localStorage.setItem("jwt", response.data.jwt);
+          alert("Login exitoso");  
+        }
+        else {
+          alert("Login fallido");
+        }
       } catch (error) {
         console.error(error)
       }
-
     }
   }
 }
