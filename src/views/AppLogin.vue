@@ -60,7 +60,7 @@ export default {
       }
 
       try {
-        const response = await axios.post('https://real-gray-cheetah-fez.cyclic.app/users/iniciar-sesion', requestBody);
+        const response = await axios.post('https://real-gray-cheetah-fez.cyclic.app/users/login/', requestBody);
         console.log(response);
         if (response && response.data && response.data.jwt) {
           localStorage.setItem("jwt", response.data.jwt);
