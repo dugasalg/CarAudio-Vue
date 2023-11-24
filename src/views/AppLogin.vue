@@ -65,6 +65,7 @@ export default {
         if (response && response.data && response.data.jwt) {
           localStorage.setItem("jwt", response.data.jwt);
           alert("Login exitoso");  
+          this.router.push({name: "Dashboard"})
         }
         else {
           alert("Login fallido");
