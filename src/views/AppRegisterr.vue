@@ -17,11 +17,11 @@
               </b-form-group>
   
               <b-form-group label="Birthdate">
-                <b-form-input v-model="birthDate" type="date" placeholder="Enter your birthdate"></b-form-input>
+                <b-form-input v-model="birthDate" type="date" placeholder="Enter your birthdate" required></b-form-input>
               </b-form-group>
   
               <b-form-group label="Address">
-                <b-form-input v-model="address" placeholder="Enter your address"></b-form-input>
+                <b-form-input v-model="address" placeholder="Enter your address" required></b-form-input>
               </b-form-group>
   
               <b-button type="submit" variant="primary">Register</b-button>
@@ -54,6 +54,11 @@
         address: "",
       }
     },
+    computed: {
+    isValidForm() {
+      return this.username && this.password && this.birthDate && this.address;
+    },
+  },
     methods:{
       async register(event){
         event.preventDefault();
