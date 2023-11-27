@@ -1,8 +1,41 @@
 <template>
   <div>
-    <b-sidebar visible id="sidebar-1" title="Sidebar" shadow>
-      Ventanas de catalogo
-    </b-sidebar>
+    <b-container>
+      <b-row>
+        <b-col></b-col>
+        <b-col cols="6">
+          <b-card title="Category">
+            <b-form @submit="createCategory">
+              <b-form-group
+                  label="Category Name"
+              >
+                <b-form-input
+                    v-model="catName"
+                    type="text"
+                    placeholder="Enter the Category Name"
+                    required
+                ></b-form-input>
+              </b-form-group>
+              <br>
+              <b-form-group
+                  label="Category Description"
+              >
+                <b-form-input
+                    v-model="catDes"
+                    type="text"
+                    placeholder="Add a description for Category"
+                    required
+                ></b-form-input>
+              </b-form-group>
+              <br>
+              <b-button type="submit" variant="primary">Add</b-button>
+            </b-form>
+          
+          </b-card>
+        </b-col>
+        <b-col></b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -13,25 +46,26 @@ export default {
   name: 'App',
   data() {
     return {
-      username:"",
-      pass:""
+      catName:"",
+      catDes:""
     }
   },
   methods: {
-    async login(event){
+    async createCategory(event){
       event.preventDefault()
       const requestBody = {
-      usrn: this.username,
-      password: this.pass
+        category: this.catName,
+        description: this.catDes
       }
 
       try {
-        const response = await axios.post('https://real-gray-cheetah-fez.cyclic.app/users/iniciar-sesion', requestBody)
+        const response = await axios.post('https://real-gray-cheetah-fez.cyclic.app/categorias/categorias/', requestBody)
         console.log(response)
+        // Handle the successful category addition here
       } catch (error) {
         console.error(error)
+        // Handle errors here
       }
-
     }
   }
 }

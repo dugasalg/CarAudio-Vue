@@ -17,7 +17,7 @@
               </b-form-group>
   
               <b-form-group label="Birthdate">
-                <b-form-input v-model="birthDate" type="date" placeholder="Enter your birthdate"></b-form-input>
+                <b-form-input v-model="birthDate" placeholder="Enter your birthdate"></b-form-input>
               </b-form-group>
   
               <b-form-group label="Address">
