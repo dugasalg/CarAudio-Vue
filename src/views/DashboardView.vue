@@ -1,12 +1,16 @@
 <template>
   <div>
     <b-sidebar visible id="sidebar-1" title="Sidebar" shadow>
-      Ventanas de catalogo
-      <router-link to="dashboard/category">Category</router-link>
+      Ventanas de catálogo
+      <div class="d-flex flex-column">
+        <router-link to="/dashboard/category">Category</router-link>
+        <router-link to="/dashboard/product">Product</router-link>
+      </div>
     </b-sidebar>
     <router-view></router-view>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios'
@@ -27,7 +31,7 @@ export default {
       }
 
       try {
-        const response = await axios.post('https://real-gray-cheetah-fez.cyclic.appusers/iniciar-sesion', requestBody)
+        const response = await axios.post('https://real-gray-cheetah-fez.cyclic.app/users/login', requestBody)
         console.log(response)
       } catch (error) {
         console.error(error)
