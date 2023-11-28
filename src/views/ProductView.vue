@@ -38,6 +38,14 @@
                   placeholder="Enter the product description"
               ></b-form-input>
             </b-form-group>
+            <b-form-group label="Product Image">
+              <b-form-input
+                  v-model="productImage"
+                  type="text"
+                  placeholder="Enter the Image URL"
+                  required
+              ></b-form-input>
+            </b-form-group>
             <b-button type="submit" variant="primary">Add Product</b-button>
           </b-form>
         </b-card>
@@ -58,7 +66,8 @@
         productName: "",
         productCategory: "",
         productPrice: 0,
-        productDescription: ""
+        productDescription: "",
+        productImage:""
       }
     },
     methods: {
@@ -67,7 +76,8 @@
           product: this.productName,
           category: this.productCategory,
           price: this.productPrice,
-          description: this.productDescription
+          description: this.productDescription,
+          image: this.productImage
         }
   
         try {

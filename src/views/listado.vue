@@ -1,7 +1,7 @@
 <template>
     <div>
       <h2>Lista de Productos</h2>
-      <table>
+      <table v-if="productos.length">
         <thead>
           <tr>
             <th>Producto</th>
@@ -9,54 +9,125 @@
             <th>Precio</th>
             <th>Descripción</th>
             <th>Imagen</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(producto, index) in productos" :key="index">
-            <td>{{ producto.product }}</td>
-            <td>{{ producto.category }}</td>
-            <td>{{ producto.price }}</td>
-            <td>{{ producto.description }}</td>
-            <td><img :src="producto.image" alt="Imagen del producto" style="width: 100px; height: 100px;"/></td>
+            <td v-if="!producto.editing">{{ producto.product }}</td>
+            <td v-else><input v-model="producto.product"></td>
+  
+            <td v-if="!producto.editing">{{ producto.category }}</td>
+            <td v-else><input v-model="producto.category"></td>
+  
+            <td v-if="!producto.editing">{{ producto.price }}</td>
+            <td v-else><input v-model="producto.price" type="number"></td>
+  
+            <td v-if="!producto.editing">{{ producto.description }}</td>
+            <td v-else><input v-model="producto.description"></td>
+  
+            <td v-if="!producto.editing"><img :src="producto.image" alt="Imagen del producto" style="width: 100px; height: 100px;"/></td>
+            <td v-else><input v-model="producto.image" type="text"></td>
+  
+            <td>
+              <button v-if="!producto.editing" @click="editarProducto(producto)">Editar</button>
+              <button v-if="producto.editing" @click="guardarCambios(producto)">Guardar</button>
+              <button v-if="producto.editing" @click="cancelarEdicion(producto)">Cancelar</button>
+              <button @click="eliminarProducto(index)" class="btn-eliminar">Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>
+      <div v-else class="empty-state">
+        <p>No hay productos disponibles.</p>
+      </div>
       <button @click="agregarProducto">Agregar Producto</button>
     </div>
   </template>
   
   <script>
-import axios from 'axios';
-
-export default {
-  name: "ProductoListado",
-  components:{
-
-  },
-
-  data() {
-    return {
-      productos: [], 
-    };
-  },
-
-  mounted() {
-    this.cargarProductos();
-  },
-
-  methods: {
-    cargarProductos() {
-      const URL = "https://real-gray-cheetah-fez.cyclic.app/products/productos";
-      axios.get(URL)
-        .then(response => {
-          this.productos = response.data; // Asume que la API devuelve un array de productos
-        })
-        .catch(error => {
-          console.error("Error al cargar productos:", error);
-        });
+  import axios from 'axios';
+  
+  export default {
+    name: "ProductoListado",
+  
+    data() {
+      return {
+        productos: [], 
+      };
     },
+  
+    mounted() {
+      this.cargarProductos();
+    },
+  
+    methods: {
+      cargarProductos() {
+        const URL = "https://real-gray-cheetah-fez.cyclic.app/products/productos";
+        axios.get(URL)
+          .then(response => {
+            this.productos = response.data.map(producto => ({
+              ...producto,
+              editing: false
+            }));
+          })
+          .catch(error => {
+            console.error("Error al cargar productos:", error);
+          });
+      },
+  
+      editarProducto(producto) {
+        producto.editing = true;
+      },
+  
+      guardarCambios(producto) {
+    const url = `https://real-gray-cheetah-fez.cyclic.app/products/productos/${producto._id}`; // Asegúrate de que es _id y no id
+    axios.put(url, {
+      product: producto.product,
+      category: producto.category,
+      price: producto.price,
+      description: producto.description,
+      image: producto.image
+    })
+    .then(response => {
+      producto.editing = false;
+      this.actualizarProductoEnLista(response.data, producto._id);
+    })
+    .catch(error => {
+      console.error("Error al actualizar el producto:", error);
+    });
+  },
 
-    agregarProducto() {
+  actualizarProductoEnLista(productoActualizado, id) {
+    const index = this.productos.findIndex(p => p._id === id); // Asegúrate de que es _id y no id
+    if (index !== -1) {
+      this.$set(this.productos, index, productoActualizado);
+    }
+  },
+
+  
+      cancelarEdicion(producto) {
+        producto.editing = false;
+        this.cargarProductos(); // Opcional: recargar datos originales del servidor
+      },
+  
+      eliminarProducto(index) {
+    const producto = this.productos[index];
+    const url = `https://real-gray-cheetah-fez.cyclic.app/products/productos/${producto._id}`; // Usar _id
+
+    axios.delete(url)
+      .then(() => {
+        // Eliminar el producto del array local si la petición fue exitosa
+        this.productos.splice(index, 1);
+      })
+      .catch(error => {
+        console.error("Error al eliminar el producto:", error);
+        // Aquí puedes manejar errores, como mostrar un mensaje al usuario
+      });
+  },
+
+  
+      agregarProducto() {
         if (this.$router.currentRoute.path !== '/dashboard') {
             this.$router.push({ name: 'products' }).catch(err => {
                 if (err.name !== 'NavigationDuplicated') {
@@ -66,11 +137,12 @@ export default {
 
         }
     },
-  },
-};
-</script>
- 
+    },
+  };
+  </script>
   
+ 
+    
 <style>
 table {
   width: 100%;
@@ -127,5 +199,33 @@ button {
 button:hover {
   background-color: #007b5e;
 }
+
+  .btn-eliminar {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-eliminar:hover {
+    background-color: #a93226;
+  }
+
+  /* Tus estilos existentes... */
+
+  .empty-state {
+    text-align: center;
+    padding: 20px;
+    color: #757575;
+  }
+
+  .empty-state img {
+    max-width: 300px;
+    margin-top: 20px;
+  }
 
 </style>
