@@ -13,11 +13,11 @@
         </thead>
         <tbody>
           <tr v-for="(producto, index) in productos" :key="index">
-            <td>{{ producto.Producto }}</td>
-            <td>{{ producto.Categoria }}</td>
-            <td>{{ producto.Precio }}</td>
-            <td>{{ producto.Descripcion }}</td>
-            <td><img :src="producto.Imagen" alt="Imagen del producto" style="width: 100px; height: auto;"/></td>
+            <td>{{ producto.product }}</td>
+            <td>{{ producto.category }}</td>
+            <td>{{ producto.price }}</td>
+            <td>{{ producto.description }}</td>
+            <td><img :src="producto.image" alt="Imagen del producto" style="width: 100px; height: 100px;"/></td>
           </tr>
         </tbody>
       </table>
@@ -29,11 +29,14 @@
 import axios from 'axios';
 
 export default {
-  name: "ListadoProductos",
+  name: "ProductoListado",
+  components:{
+
+  },
 
   data() {
     return {
-      productos: [], // Almacenará los productos de la API
+      productos: [], 
     };
   },
 
@@ -54,8 +57,14 @@ export default {
     },
 
     agregarProducto() {
-      // Lógica para agregar un nuevo producto
-      // Esto puede requerir otro método o un formulario de entrada
+        if (this.$router.currentRoute.path !== '/dashboard') {
+            this.$router.push({ name: 'products' }).catch(err => {
+                if (err.name !== 'NavigationDuplicated') {
+                throw err;
+  }
+});
+
+        }
     },
   },
 };
@@ -66,20 +75,57 @@ export default {
 table {
   width: 100%;
   border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.9em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
+th, 
+td {
+  padding: 12px 15px;
   text-align: left;
+  border-bottom: 1px solid #dddddd;
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #009879;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+tr {
+  background-color: #ffffff;
+}
+
+tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
 }
 
 button {
-  margin-top: 10px;
-  padding: 5px 10px;
+  background-color: #009879;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
+
+button:hover {
+  background-color: #007b5e;
+}
+
 </style>

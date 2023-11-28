@@ -2,7 +2,12 @@
   <div>
     <b-sidebar visible id="sidebar-1" title="Sidebar" shadow>
       Ventanas de catalogo
-      <router-link to="dashboard/category">Category</router-link>
+      <br>
+      <ul>
+      <li><router-link to="dashboard/category">Category</router-link></li>
+      <li><router-link to="dashboard/listado">Lista de Productos</router-link></li>
+      <li><router-link to="dashboard/products">Agregar producto</router-link></li>
+      </ul>
     </b-sidebar>
     <router-view></router-view>
   </div>

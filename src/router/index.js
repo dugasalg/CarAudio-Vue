@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LoginView from '../views/AppLogin.vue'
+import Register from '../views/AppRegisterr.vue'
+import DashBoard from '../views/DashboardView.vue'
+import Category from '../views/CategoryView.vue'
+import Prodcuts from '../views/ProductView.vue'
+import Listado from '../views/listado.vue'
 
 Vue.use(VueRouter)
 
@@ -13,25 +18,31 @@ const routes = [
   {
     path: '/register',
     name: 'register',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AppRegisterr.vue')
+    component: Register
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/DashboardView.vue'),
+    component: DashBoard,
     children: [
       {
         path: 'category',
-        component: () => import(/* webpackChunkName: "about" */ '../views/CategoryView.vue')
+        name: 'category',
+        component: Category
+      },
+      {
+        path: 'products',
+        name: 'products',
+        component: Prodcuts
+      },
+      {
+        path: 'listado',
+        name: 'listado',
+        component: Listado 
       }
     ]
-  }
+  },
+
 ]
 
 const router = new VueRouter({
