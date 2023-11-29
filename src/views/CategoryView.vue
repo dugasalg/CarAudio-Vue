@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div class="menu-container">
+      <b-nav>
+        <b-nav-item-dropdown text="Perfil" right>
+          <b-dropdown-item @click="logout">Cerrar Sesión</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </div>
     <b-container>
       <b-row>
         <b-col></b-col>
@@ -51,6 +58,10 @@ export default {
     }
   },
   methods: {
+    logout() {
+      localStorage.removeItem('jwt');
+      this.$router.push('/');
+    },
     async createCategory(event){
       event.preventDefault()
       const requestBody = {

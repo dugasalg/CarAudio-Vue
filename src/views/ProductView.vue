@@ -1,5 +1,12 @@
 <template>
     <div>
+        <div class="menu-container">
+      <b-nav>
+        <b-nav-item-dropdown text="Perfil" right>
+          <b-dropdown-item @click="logout">Cerrar Sesión</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </div>
       <b-container>
         <b-row>
       <div class="product-form-container">
@@ -71,6 +78,11 @@
       }
     },
     methods: {
+        logout() {
+      localStorage.removeItem('jwt');
+      this.$router.push('/');
+    },
+
       async addProduct() {
         const requestBody = {
           product: this.productName,

@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div class="menu-container">
+      <b-nav>
+        <b-nav-item-dropdown text="Perfil" right>
+          <b-dropdown-item @click="logout">Cerrar Sesión</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </div>
     <b-sidebar visible id="sidebar-1" title="Sidebar" shadow>
       Ventanas de catalogo
       <br>
@@ -25,6 +32,10 @@ export default {
     }
   },
   methods: {
+    logout() {
+      localStorage.removeItem('jwt');
+      this.$router.push('/');
+    },
     async login(event){
       event.preventDefault()
       const requestBody = {

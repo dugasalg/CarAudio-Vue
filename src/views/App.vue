@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+    <div class="menu-container">
+      <b-nav>
+        <b-nav-item-dropdown text="Perfil" right>
+          <b-dropdown-item @click="logout">Cerrar Sesión</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </div>
     <router-view></router-view>
   </div>
 </template>

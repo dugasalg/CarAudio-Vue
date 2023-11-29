@@ -1,5 +1,12 @@
 <template>
     <div>
+        <div class="menu-container">
+      <b-nav>
+        <b-nav-item-dropdown text="Perfil" right>
+          <b-dropdown-item @click="logout">Cerrar Sesión</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </div>
       <h2>Lista de Productos</h2>
       <table v-if="productos.length">
         <thead>
@@ -62,6 +69,10 @@
     },
   
     methods: {
+        logout() {
+      localStorage.removeItem('jwt');
+      this.$router.push('/');
+    },
       cargarProductos() {
         const URL = "https://real-gray-cheetah-fez.cyclic.app/products/productos";
         axios.get(URL)

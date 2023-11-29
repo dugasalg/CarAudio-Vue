@@ -1,5 +1,12 @@
 <template>
     <div>
+        <div class="menu-container">
+      <b-nav>
+        <b-nav-item-dropdown text="Perfil" right>
+          <b-dropdown-item @click="logout">Cerrar Sesión</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </div>
       <h2>Lista de Categorías</h2>
       <table v-if="categorias.length">
         <thead>
@@ -69,6 +76,11 @@
     },
   
     methods: {
+        logout() {
+      localStorage.removeItem('jwt');
+      this.$router.push('/');
+    },
+    
         cargarCategorias() {
       const URL = "https://real-gray-cheetah-fez.cyclic.app/categorias/categorias";
       axios.get(URL)
