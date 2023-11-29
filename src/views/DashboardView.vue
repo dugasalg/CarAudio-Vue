@@ -4,10 +4,10 @@
       Ventanas de catalogo
       <br>
       <ul>
-      <li><router-link to="dashboard/category">Category</router-link></li>
-      <li><router-link to="dashboard/listado">Lista de Productos</router-link></li>
-      <li><router-link to="dashboard/products">Agregar producto</router-link></li>
-      <li> <router-link to="dashboard/listadoCategory">Lista de Categorias</router-link></li>
+      <li><router-link :to="{name: 'category'}">Category</router-link></li>
+      <li><router-link :to="{name: 'listado'}">Lista de Productos</router-link></li>
+      <li><router-link :to="{name: 'products'}">Agregar producto</router-link></li>
+      <li> <router-link :to="{name: 'listadoCategory'}">Lista de Categorias</router-link></li>
       </ul>
     </b-sidebar>
     <router-view></router-view>
