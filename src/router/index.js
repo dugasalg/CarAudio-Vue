@@ -6,6 +6,7 @@ import DashBoard from '../views/DashboardView.vue'
 import Category from '../views/CategoryView.vue'
 import Prodcuts from '../views/ProductView.vue'
 import Listado from '../views/listado.vue'
+import Listadocategory from '../views/listadoCategory.vue'
 
 Vue.use(VueRouter)
 
@@ -39,7 +40,13 @@ const routes = [
         path: 'listado',
         name: 'listado',
         component: Listado 
-      }
+      },
+      {
+      path: "listadoCategory",
+      name: "listadoCategory",
+      component: Listadocategory
+    }
+      
     ]
   },
 
