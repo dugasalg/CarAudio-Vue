@@ -7,6 +7,7 @@ import Category from '../views/CategoryView.vue'
 import Prodcuts from '../views/ProductView.vue'
 import Listado from '../views/listado.vue'
 import Listadocategory from '../views/listadoCategory.vue'
+import UserEditView from '../views/Usuario.vue'
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,11 @@ const routes = [
       path: "listadoCategory",
       name: "listadoCategory",
       component: Listadocategory
+    },
+    {
+      path: '/edit-user',
+      name: 'editUser',
+      component: UserEditView
     }
       
     ]

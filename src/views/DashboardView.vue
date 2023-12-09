@@ -7,7 +7,9 @@
       <li><router-link :to="{name: 'category'}">Category</router-link></li>
       <li><router-link :to="{name: 'listado'}">Lista de Productos</router-link></li>
       <li><router-link :to="{name: 'products'}">Agregar producto</router-link></li>
-      <li> <router-link :to="{name: 'listadoCategory'}">Lista de Categorias</router-link></li>
+      <li><router-link :to="{name: 'listadoCategory'}">Lista de Categorias</router-link></li>
+      <li><router-link :to="{ name: 'editUser' }">Editar Usuario</router-link>
+</li>
       </ul>
     </b-sidebar>
     <router-view></router-view>
